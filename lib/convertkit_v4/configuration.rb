@@ -1,4 +1,4 @@
-module Convertkit
+module ConvertkitV4
   class Configuration
     attr_accessor :api_secret, :api_key
     attr_accessor :timeout, :open_timeout

@@ -1,6 +1,6 @@
 require "spec_helper"
 
-module Convertkit
+module ConvertkitV4
   describe Connection do
     describe "#initialize" do
       it "uses api key" do

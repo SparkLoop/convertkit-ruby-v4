@@ -1,16 +1,16 @@
 require "spec_helper"
 require "securerandom"
 
-module Convertkit
+module ConvertkitV4
   class Client
     describe Webhooks do
       before do
-        Convertkit.configure do |config|
+        ConvertkitV4.configure do |config|
           config.api_secret = ENV["API_SECRET"]
           config.api_key = ENV["API_KEY"]
         end
 
-        @client = Convertkit::Client.new
+        @client = ConvertkitV4::Client.new
         @url = "https://webhook.site/2bc3b03e-0f34-4a00-b2a9-028eff304f50"
         @events = {"name": "subscriber.subscriber_activate"}
         @rule_id = 1175937

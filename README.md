@@ -1,13 +1,13 @@
-# Convertkit Ruby Client
+# Convertkit V4 Ruby Client
 
-A Ruby toolkit for [Convertkit](https://convertkit.com/) API.
+A Ruby toolkit for [ConvertkitV4](https://convertkit.com/) API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'convertkit-ruby', require: 'convertkit'
+gem 'convertkit_v4-ruby', require: 'convertkit_v4'
 ```
 
 And then execute:
@@ -16,29 +16,29 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install convertkit-ruby
+    $ gem install convertkit_v4-ruby
 
 ## Authentication
 
-For private integrations, use your personal ``API_KEY`` and ``API_SECRET`` found in [your account settings.](https://app.convertkit.com/account/edit)
+For private integrations, use your personal ``API_KEY`` and ``API_SECRET`` found in [your account settings.](https://app.ConvertkitV4.com/account/edit)
 
 ```ruby
 require "dotenv"
 Dotenv.load(".env.local")
 
-Convertkit.configure do |config|
+ConvertkitV4.configure do |config|
   config.api_secret = ENV["API_SECRET"]
   config.api_key = ENV["API_KEY"]
 end
 
-client = Convertkit::Client.new
+client = ConvertkitV4::Client.new
 ```
 
 ## Usage
 
-Calls for Convertkit API v3 are relative to the url [http://api.convertkit.com/v3](http://api.convertkit.com/v3).
+Calls for ConvertkitV4 API v3 are relative to the url [developers.convertkit.com](developers.convertkit.com).
 
-API actions are available as methods on the client object. Currently, the Convertkit client has the following methods:
+API actions are available as methods on the client object. Currently, the ConvertkitV4 client has the following methods:
 
 
 | Action                       | Method                                                          |
@@ -61,9 +61,9 @@ API actions are available as methods on the client object. Currently, the Conver
 
 ## Use Cases
 
-Here are some common use cases for the Convertkit v3 API client.
+Here are some common use cases for the ConvertkitV4 v4 API client.
 
-First configure the ``convertkit-ruby`` gem with your ``API_KEY`` and ``API_SECRET``, and initialize a new client. After that, you can fetch data from your account.
+First configure the ``convertkit_v4-ruby`` gem with your ``API_KEY`` and ``API_SECRET``, and initialize a new client. After that, you can fetch data from your account.
 
 ### List subscribers
 
@@ -99,9 +99,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/Atomoworks/convertkit-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/SparkLoop/convertkit-ruby-v4. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
-1. Fork it ( https://github.com/Atomoworks/convertkit-ruby/fork )
+1. Fork it ( https://github.com/SparkLoop/convertkit-ruby-v4/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

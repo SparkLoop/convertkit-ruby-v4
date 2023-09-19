@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'convertkit/version'
+require 'convertkit_v4/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "convertkit-ruby"
-  spec.version       = Convertkit::VERSION
-  spec.authors       = ["Manuel Frigerio"]
-  spec.email         = ["manuel.frigerio@gmail.com"]
+  spec.name          = "convertkit_v4-ruby"
+  spec.version       = ConvertkitV4::VERSION
+  spec.authors       = ["Manuel Frigerio", "Petar Risteski"]
+  spec.email         = ["manuel.frigerio@gmail.com", "risteskipetar3@gmail.com"]
 
-  spec.summary       = %q{A Ruby gem for interacting with the ConvertKit API v3}
-  spec.description   = %q{A simple wrapper for the ConvertKit API}
+  spec.summary       = %q{A Ruby gem for interacting with the Convertkit API v4}
+  spec.description   = %q{A simple wrapper for the Convertkit V4 API}
   spec.homepage      = "https://manuel.friger.io"
   spec.license       = "MIT"
 

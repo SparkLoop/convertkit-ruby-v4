@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "convertkit"
+require "convertkit_v4"
 require "dotenv"
 
 Dotenv.load(".env.local")
 
-Convertkit.configure do |config|
+ConvertkitV4.configure do |config|
   config.api_secret = ENV["API_SECRET"]
   config.api_key = ENV["API_KEY"]
 end

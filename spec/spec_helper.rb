@@ -1,12 +1,12 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'convertkit'
+require 'convertkit_v4'
 require "dotenv"
 Dotenv.load(".env.local")
 
 require 'webmock/rspec'
 require 'vcr'
 
-Convertkit.configure do |config|
+ConvertkitV4.configure do |config|
   config.api_secret = ENV["API_SECRET"]
   config.api_key = ENV["API_KEY"]
 end
@@ -20,5 +20,3 @@ VCR.configure do |config|
 end
 
 WebMock.allow_net_connect!
-
-

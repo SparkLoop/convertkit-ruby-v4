@@ -1,9 +1,9 @@
-require "convertkit/errors"
+require "convertkit_v4/errors"
 require "faraday"
 require "faraday_middleware"
 require "json"
 
-module Convertkit
+module ConvertkitV4
   class Connection
     attr_reader :http_connection
 
@@ -38,10 +38,10 @@ module Convertkit
         f.url_prefix = "https://api.convertkit.com/v3/"
         f.adapter :net_http
 
-        f.options.timeout = Convertkit.configuration.timeout
-        f.options.open_timeout = Convertkit.configuration.open_timeout
+        f.options.timeout = ConvertkitV4.configuration.timeout
+        f.options.open_timeout = ConvertkitV4.configuration.open_timeout
 
-        f.headers['User-Agent'] = "Convertkit-Ruby v#{Convertkit::VERSION}"
+        f.headers['User-Agent'] = "Convertkit-Ruby v#{ConvertkitV4::VERSION}"
         f.headers['Content-Type'] = content_type
         f.headers['Accept'] = "*/*"
 
