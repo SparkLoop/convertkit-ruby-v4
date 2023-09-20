@@ -21,6 +21,7 @@ module ConvertkitV4
 
     AUTH_URL = "https://app.convertkit.com/oauth/authorize"
     ACCESS_TOKEN_URL = "https://app.convertkit.com/oauth/token"
+    REVOKE_ACCESS_URL = "https://app.convertkit.com/oauth/revoke"
 
     def initialize(access_token: nil, refresh_token: nil, client_id: nil, client_secret: nil, redirect_uri: nil)
       @access_token = access_token
@@ -63,6 +64,17 @@ module ConvertkitV4
           client_secret: @client_secret,
           refresh_token: @refresh_token,
           grant_type: "refresh_token"
+        }
+      end
+    end
+
+    def revoke_access
+      Faraday.new(url: REVOKE_ACCESS_URL).post do |req|
+        req.headers["Content-Type"] = "application/json"
+        req.params = {
+          client_id: @client_id,
+          client_secret: @client_secret,
+          token: @access_token
         }
       end
     end
