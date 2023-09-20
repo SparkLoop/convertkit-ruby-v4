@@ -7,15 +7,13 @@ require 'webmock/rspec'
 require 'vcr'
 
 ConvertkitV4.configure do |config|
-  config.api_secret = ENV["API_SECRET"]
-  config.api_key = ENV["API_KEY"]
+  config.access_token = ENV["CONVERTKIT_ACCESS_TOKEN"]
 end
 
 VCR.configure do |config|
   config.cassette_library_dir = "fixtures/vcr_cassettes"
   config.hook_into :webmock
-  config.filter_sensitive_data("<API_SECRET>") { ENV["API_SECRET"] }
-  config.filter_sensitive_data("<API_KEY>") { ENV["API_KEY"] }
+  config.filter_sensitive_data("<ACCESS_TOKEN>") { ENV["CONVERTKIT_ACCESS_TOKEN"] }
   config.allow_http_connections_when_no_cassette = true
 end
 

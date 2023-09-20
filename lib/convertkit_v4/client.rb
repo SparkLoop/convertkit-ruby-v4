@@ -17,15 +17,28 @@ module ConvertkitV4
     include Webhooks
     include Tags
 
-    attr_accessor :api_secret, :api_key
+    attr_accessor :access_token, :refresh_token, :client_id, :client_secret, :redirect_uri
 
-    def initialize( api_key=nil, api_secret=nil )
-      @api_secret = api_secret || ConvertkitV4.configuration.api_secret
-      @api_key = api_key || ConvertkitV4.configuration.api_key
+    AUTH_URL = "https://app.convertkit.com/oauth/authorize"
+
+    def initialize(access_token: nil, refresh_token: nil, client_id: nil, client_secret: nil, redirect_uri: nil)
+      @access_token = access_token
+      @refresh_token = refresh_token
+
+      @client_id = client_id || ConvertkitV4.configuration.client_id
+      @client_secret = client_secret || ConvertkitV4.configuration.client_secret
+      @redirect_uri = redirect_uri || ConvertkitV4.configuration.redirect_uri
     end
 
     def connection
-      @connection ||= Connection.new(api_key: api_key, api_secret: api_secret)
+      @connection ||= Connection.new(access_token: @access_token)
+    end
+
+    def authorize
+      Faraday.new(url: AUTH_URL).get do |req|
+        req.headers["Content-Type"] = "application/json"
+        req.params = { client_id: @client_id, redirect_uri: @redirect_uri }
+      end
     end
   end
 end

@@ -14,20 +14,12 @@ describe ConvertkitV4 do
       ConvertkitV4.configuration = @old_configuration
     end
 
-    it "sets the api_secret value" do
+    it "sets the client_id value" do
       ConvertkitV4.configure do |config|
-        config.api_secret = "new_secret"
+        config.client_id = "new_client_id"
       end
 
-      expect(ConvertkitV4.configuration.api_secret).to eql("new_secret")
-    end
-
-    it "sets the api_key value" do
-      ConvertkitV4.configure do |config|
-        config.api_key = "new_key"
-      end
-
-      expect(ConvertkitV4.configuration.api_key).to eql("new_key")
+      expect(ConvertkitV4.configuration.client_id).to eql("new_client_id")
     end
 
     it "sets the timeout value" do

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.convertkit.com/v3/custom_fields?api_key=<API_KEY>&api_secret=<API_SECRET>
+    uri: https://api.convertkit.com/v3/custom_fields?access_token=<ACCESS_TOKEN>
     body:
       encoding: US-ASCII
       string: ''
@@ -10,7 +10,7 @@ http_interactions:
       User-Agent:
       - Convertkit-Ruby v0.0.2
       Content-Type:
-      - application/vnd.api+json
+      - application/json
       Accept:
       - "*/*"
       Accept-Encoding:
