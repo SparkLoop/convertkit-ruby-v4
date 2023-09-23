@@ -1,18 +1,21 @@
-require "convertkit/errors"
+require "convertkit_v4/errors"
 require "faraday"
 require "faraday_middleware"
 require "json"
 
-module Convertkit
+module ConvertkitV4
   class Connection
     attr_reader :http_connection
 
-    def initialize(api_key: nil, api_secret: nil)
-      @http_connection = faraday_connection(api_key, api_secret)
+    API_URL = "https://api.convertkit.com/"
+    API_VERSION_PATH = "alpha/"
+
+    def initialize(access_token: nil)
+      @http_connection = faraday_connection(access_token)
     end
 
     def content_type
-      "application/vnd.api+json"
+      "application/json"
     end
 
     def get(*args, &blk)
@@ -33,20 +36,18 @@ module Convertkit
 
     private
 
-    def faraday_connection(api_key, api_secret)
+    def faraday_connection(access_token)
       Faraday.new do |f|
-        f.url_prefix = "https://api.convertkit.com/v3/"
+        f.url_prefix = "#{API_URL}#{API_VERSION_PATH}"
         f.adapter :net_http
 
-        f.options.timeout = Convertkit.configuration.timeout
-        f.options.open_timeout = Convertkit.configuration.open_timeout
+        f.options.timeout = ConvertkitV4.configuration.timeout
+        f.options.open_timeout = ConvertkitV4.configuration.open_timeout
 
-        f.headers['User-Agent'] = "Convertkit-Ruby v#{Convertkit::VERSION}"
         f.headers['Content-Type'] = content_type
         f.headers['Accept'] = "*/*"
 
-        f.params['api_secret'] = api_secret if api_secret
-        f.params['api_key'] = api_key if api_key
+        f.params['access_token'] = access_token if access_token
 
         f.response :json, content_type: /\bjson$/
       end

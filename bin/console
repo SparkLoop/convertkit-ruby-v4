@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"
-require "convertkit"
+require "convertkit_v4"
 require "dotenv"
 
 Dotenv.load(".env.local")
 
-Convertkit.configure do |config|
-  config.api_secret = ENV["API_SECRET"]
-  config.api_key = ENV["API_KEY"]
+ConvertkitV4.configure do |config|
+  config.client_id = ENV["CONVERTKIT_CLIENT_ID"]
+  config.client_secret = ENV["CONVERTKIT_CLIENT_SECRET"]
+  config.redirect_uri = ENV["CONVERTKIT_REDIRECT_URI"]
 end
 
 # You can add fixtures and/or initialization code here to make experimenting

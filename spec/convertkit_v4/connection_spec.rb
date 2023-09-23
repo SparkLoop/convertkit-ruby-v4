@@ -1,26 +1,19 @@
 require "spec_helper"
 
-module Convertkit
+module ConvertkitV4
   describe Connection do
     describe "#initialize" do
-      it "uses api key" do
-        api_key = "api_key"
-        connection = Connection.new(api_key: api_key)
+      it "uses access_token" do
+        access_token = "access_token"
+        connection = Connection.new(access_token: access_token)
 
-        expect(connection.http_connection.params["api_key"]).to eq(api_key)
-      end
-
-      it "uses api secret" do
-        api_secret = "api_secret"
-        connection = Connection.new(api_secret: api_secret)
-
-        expect(connection.http_connection.params["api_secret"]).to eq(api_secret)
+        expect(connection.http_connection.params["access_token"]).to eq(access_token)
       end
     end
 
     describe "error handling" do
       before do
-        @connection = Connection.new(api_key: "api_key")
+        @connection = Connection.new(access_token: "access_token")
       end
 
       it "handles 401 errors" do
