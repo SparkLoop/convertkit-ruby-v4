@@ -5,10 +5,12 @@ module ConvertkitV4
         connection.get("webhooks").body
       end
 
-      def create_webhook(url, events)
+      def create_webhook(target_url, event)
         response = connection.post("webhooks") do |f|
-          f.params['target_url'] = url
-          f.params['event'] = events
+          f.body = JSON.generate({
+            target_url: options[:target_url],
+            event: options[:event]
+          })
         end
         response.body
       end
