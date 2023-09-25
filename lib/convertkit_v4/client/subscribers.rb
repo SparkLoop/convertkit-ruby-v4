@@ -11,11 +11,10 @@ module ConvertkitV4
 
       def add_subscriber(options = {})
         response = connection.post("subscribers") do |f|
-          body = {}
-          body[:email_address] = options[:email_address]
-          body[:first_name] = options[:first_name]
-
-          f.body = JSON.generate(body)
+          f.body = JSON.generate({
+            email_address: options[:email_address],
+            first_name: options[:first_name]
+          })
         end
         response.body
       end
