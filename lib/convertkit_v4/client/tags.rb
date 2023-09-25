@@ -5,12 +5,11 @@ module ConvertkitV4
         connection.get("tags")
       end
 
-      def add_subscriber_to_tag(tag_id, email, options = {})
+      def add_subscriber_to_tag(tag_id, email)
         connection.post("tags/#{tag_id}/subscribers") do |f|
-          f.params['email'] = email
-          f.params['first_name'] = options[:first_name]
-          f.params['fields'] = options[:fields]
-          f.params['tags'] = options[:tags]
+          f.body = JSON.generate({
+            email_address: email
+          })
         end
       end
 
