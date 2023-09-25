@@ -9,7 +9,7 @@ module ConvertkitV4
         connection.get("subscribers/#{subscriber_id}")
       end
 
-      def add_subscribers(options = {})
+      def add_subscriber(options = {})
         response = connection.post("subscribers") do |f|
           f.body = JSON.generate({
             first_name: options[:first_name],
