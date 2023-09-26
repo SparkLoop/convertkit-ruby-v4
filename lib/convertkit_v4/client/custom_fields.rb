@@ -7,7 +7,7 @@ module ConvertkitV4
       end
 
       def add_custom_field(label)
-        connection.post("custom_fields") do |f|
+        response = connection.post("custom_fields") do |f|
           f.body = JSON.generate({
             label: label
           })
@@ -20,7 +20,7 @@ module ConvertkitV4
       end
 
       def update_custom_field(custom_field_id, label)
-        connection.put("custom_fields/#{custom_field_id}") do |f|
+        response = connection.put("custom_fields/#{custom_field_id}") do |f|
           f.body = JSON.generate({
             label: label
           })

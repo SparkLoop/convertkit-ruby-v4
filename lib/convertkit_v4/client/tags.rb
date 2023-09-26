@@ -16,7 +16,7 @@ module ConvertkitV4
       end
 
       def add_subscriber_to_tag(tag_id, options = {})
-        connection.post("tags/#{tag_id}/subscribers") do |f|
+        response = connection.post("tags/#{tag_id}/subscribers") do |f|
           f.body = JSON.generate({
             email: options[:email],
             id: options[:id]
