@@ -27,7 +27,7 @@ module ConvertkitV4
       end
 
       def create_tag(tag_name)
-        response = connection.post("tags") do |request|
+        response = connection.post("tags") do |f|
           f.body = JSON.generate({
             tag: {
               name: tag_name
