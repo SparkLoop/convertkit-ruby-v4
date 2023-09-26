@@ -22,6 +22,7 @@ module ConvertkitV4
             id: options[:id]
           })
         end
+        response.body
       end
 
     end

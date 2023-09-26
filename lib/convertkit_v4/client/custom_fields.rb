@@ -12,6 +12,7 @@ module ConvertkitV4
             label: label
           })
         end
+        response.body["custom_field"]
       end
 
       def delete_custom_field(custom_field_id)
@@ -24,6 +25,7 @@ module ConvertkitV4
             label: label
           })
         end
+        response.body["custom_field"]
       end
 
     end
