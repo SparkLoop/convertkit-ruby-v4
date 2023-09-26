@@ -1,21 +1,21 @@
 module ConvertkitV4
   class Client
     module Webhooks
+
       def webhooks
-        connection.get("automations/hooks/").body
+        connection.get("webhooks").body
       end
 
-      def create_webhook(url, events)
-        response = connection.post("automations/hooks") do |f|
-          f.params['target_url'] = url
-          f.params['event'] = events
+      def create_webhook(url, event)
+        response = connection.post("webhooks") do |f|
+          f.body = JSON.generate({
+            target_url: url,
+            event: event
+          })
         end
         response.body
       end
 
-      def remove_webhook(rule_id)
-        connection.delete("automations/hooks/#{rule_id}").body
-      end
     end
   end
 end
