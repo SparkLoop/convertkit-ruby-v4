@@ -70,7 +70,15 @@ module ConvertkitV4
     def handle_error_response(response)
       case response.status
       when 401
-        raise AuthorizationError.new(response.body)
+        authenticate_header = response.headers['WWW-Authenticate']
+        if authenticate_header && authenticate_header.include?('invalid_token')
+          error_description = authenticate_header.match(/error_description="(.+)"/)[1]
+          if error_description == 'The access token expired'
+            raise ExpiredTokenError.new(response.body) 
+          else
+            raise AuthorizationError.new(response.body)
+          end
+        end
       when 404
         raise NotFoundError.new(response.body)
       when 422
