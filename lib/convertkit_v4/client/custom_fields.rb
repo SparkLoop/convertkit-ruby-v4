@@ -6,9 +6,11 @@ module ConvertkitV4
         connection.get("custom_fields").body["custom_fields"]
       end
 
-      def add_custom_field(options = {})
+      def add_custom_field(label)
         connection.post("custom_fields") do |f|
-          f.params['label'] = options[:label]
+          f.body = JSON.generate({
+            label: label
+          })
         end
       end
 
@@ -16,9 +18,11 @@ module ConvertkitV4
         connection.delete("custom_fields/#{custom_field_id}")
       end
 
-      def update_custom_field(custom_field_id, options = {})
+      def update_custom_field(custom_field_id, label)
         connection.put("custom_fields/#{custom_field_id}") do |f|
-          f.params['label'] = options[:label]
+          f.body = JSON.generate({
+            label: label
+          })
         end
       end
 
