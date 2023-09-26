@@ -13,7 +13,7 @@ module ConvertkitV4
             event: event
           })
         end
-        response.body
+        response.body["webhook"]
       end
 
     end

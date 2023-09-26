@@ -7,7 +7,7 @@ module ConvertkitV4
       end
 
       def subscriber(subscriber_id)
-        connection.get("subscribers/#{subscriber_id}")
+        connection.get("subscribers/#{subscriber_id}").body["subscriber"]
       end
 
       def add_subscriber(email_address, options = {})
@@ -21,7 +21,7 @@ module ConvertkitV4
 
           f.body = JSON.generate(body)
         end
-        response.body
+        response.body["subscriber"]
       end
 
       def update_subscriber(subscriber_id, options = {})
@@ -33,7 +33,7 @@ module ConvertkitV4
 
           f.body = JSON.generate(body)
         end
-        response.body
+        response.body["subscriber"]
       end
 
       def unsubscribe(subscriber_id)
@@ -45,7 +45,7 @@ module ConvertkitV4
       end
 
       def subscriber_tags(subscriber_id)
-        connection.get("subscribers/#{subscriber_id}/tags")
+        connection.get("subscribers/#{subscriber_id}/tags").body["tags"]
       end
     end
   end
