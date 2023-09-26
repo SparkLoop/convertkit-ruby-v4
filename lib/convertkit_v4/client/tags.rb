@@ -3,7 +3,7 @@ module ConvertkitV4
     module Tags
 
       def tags
-        connection.get("tags")
+        connection.get("tags").body["tags"]
       end
 
       def create_tag(tag_name)

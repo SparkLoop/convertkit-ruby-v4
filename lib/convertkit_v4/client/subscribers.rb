@@ -3,7 +3,7 @@ module ConvertkitV4
     module Subscribers
 
       def subscribers(options = {})
-        connection.get("subscribers", options)
+        connection.get("subscribers", options).body
       end
 
       def subscriber(subscriber_id)

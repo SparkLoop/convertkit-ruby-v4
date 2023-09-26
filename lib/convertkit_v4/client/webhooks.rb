@@ -3,7 +3,7 @@ module ConvertkitV4
     module Webhooks
 
       def webhooks
-        connection.get("webhooks").body
+        connection.get("webhooks").body["webhooks"]
       end
 
       def create_webhook(url, event)
