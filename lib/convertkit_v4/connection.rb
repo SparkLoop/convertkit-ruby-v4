@@ -74,11 +74,10 @@ module ConvertkitV4
         if authenticate_header && authenticate_header.include?('invalid_token')
           error_description = authenticate_header.match(/error_description="(.+)"/)[1]
           if error_description == 'The access token expired'
-            raise ExpiredTokenError.new(response.body) 
-          else
-            raise AuthorizationError.new(response.body)
+            raise ExpiredTokenError.new(response.body)
           end
         end
+        raise AuthorizationError.new(response.body)
       when 404
         raise NotFoundError.new(response.body)
       when 422
