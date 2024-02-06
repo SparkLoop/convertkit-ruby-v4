@@ -2,6 +2,7 @@ require "convertkit_v4/client/account"
 require "convertkit_v4/client/custom_fields"
 require "convertkit_v4/client/forms"
 require "convertkit_v4/client/sequences"
+require "convertkit_v4/client/broadcasts"
 require "convertkit_v4/client/subscribers"
 require "convertkit_v4/client/webhooks"
 require "convertkit_v4/client/tags"
@@ -13,6 +14,7 @@ module ConvertkitV4
     include CustomFields
     include Forms
     include Sequences
+    include Broadcasts
     include Subscribers
     include Webhooks
     include Tags
