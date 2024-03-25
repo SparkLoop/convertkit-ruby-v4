@@ -8,7 +8,7 @@ module ConvertkitV4
     attr_reader :http_connection
 
     API_URL = "https://api.convertkit.com/"
-    API_VERSION_PATH = "alpha/"
+    API_VERSION_PATH = "v4/"
 
     def initialize(access_token: nil)
       @http_connection = faraday_connection(access_token)

@@ -12,7 +12,7 @@ module ConvertkitV4
             name: tag_name
           })
         end
-        response.body
+        response.body["tag"]
       end
 
       def add_subscriber_to_tag(tag_id, options = {})
