@@ -1,6 +1,6 @@
 require "spec_helper"
 
-module ConvertkitV4
+module Convertkit
   describe Connection do
     describe "#initialize" do
       it "uses access_token" do

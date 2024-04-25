@@ -1,10 +1,10 @@
 require "spec_helper"
 require "base64"
 
-module ConvertkitV4
+module Convertkit
   describe Client do
     before :each do
-      @client = ConvertkitV4::Client.new
+      @client = Convertkit::Client.new
     end
 
     describe "#initialize" do

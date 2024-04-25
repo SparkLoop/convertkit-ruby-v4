@@ -1,4 +1,4 @@
-module ConvertkitV4
+module Convertkit
   class Client
     module Account
       def account

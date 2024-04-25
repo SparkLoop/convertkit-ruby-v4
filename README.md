@@ -1,13 +1,13 @@
 # Convertkit V4 Ruby Client
 
-A Ruby toolkit for [ConvertkitV4](https://convertkit.com/) API.
+A Ruby toolkit for [Convertkit](https://convertkit.com/) API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'convertkit_v4-ruby', require: 'convertkit_v4'
+gem 'convertkit-ruby', require: 'convertkit'
 ```
 
 And then execute:
@@ -16,29 +16,36 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install convertkit_v4-ruby
+    $ gem install convertkit-ruby
 
 ## Authentication
 
-For private integrations, use your personal ``API_KEY`` and ``API_SECRET`` found in [your account settings.](https://app.ConvertkitV4.com/account/edit)
-
 ```ruby
-require "dotenv"
-Dotenv.load(".env.local")
 
-ConvertkitV4.configure do |config|
-  config.api_secret = ENV["API_SECRET"]
-  config.api_key = ENV["API_KEY"]
+Convertkit.configure do |config|
+  config.client_id = ENV["CK_CLIENT_ID"]
+  config.client_secret = ENV["CK_CLIENT_SECRET"]
+  config.redirect_uri = ENV["CK_REDIRECT_URI"]
 end
 
-client = ConvertkitV4::Client.new
+def convertkit_app
+  auth = request.env["omniauth.auth"]
+
+  your_model.update(
+    convertkit_access_token: auth.token,
+    convertkit_refresh_token: auth.refresh_token,
+    convertkit_token_expires_at: auth.expires_at
+  )
+
+  redirect_to root_path, notice: 'Your ConvertKit account has been connected'
+end
 ```
 
 ## Usage
 
-Calls for ConvertkitV4 API v3 are relative to the url [developers.convertkit.com](developers.convertkit.com).
+Calls for Convertkit API v4 are relative to the url [api.convertkit.com/v4.html](api.convertkit.com/v4.html).
 
-API actions are available as methods on the client object. Currently, the ConvertkitV4 client has the following methods:
+API actions are available as methods on the client object. Currently, the Convertkit client has the following methods:
 
 
 | Action                       | Method                                                          |
@@ -57,13 +64,14 @@ API actions are available as methods on the client object. Currently, the Conver
 
 **Note:** We do not have complete API coverage yet. If we are missing an API method that you need to use in your application, please file an issue and/or open a pull request.
 
-[See the official API documentation](https://developers.convertkit.com/v4) for a complete API reference.
+[See the official API documentation](https://developers.convertkit.com/v4.html#getting-started) for a complete API reference.
 
 ## Use Cases
 
-Here are some common use cases for the ConvertkitV4 v4 API client.
+Here are some common use cases for the Convertkit v4 API client.
 
-First configure the ``convertkit_v4-ruby`` gem with your ``API_KEY`` and ``API_SECRET``, and initialize a new client. After that, you can fetch data from your account.
+First configure the ``convertkit-ruby`` gem with your ``client_id``, ``client_secret`` and ``redirect_uri``.
+After that, you can initialize a new client with your access_token.
 
 ### List subscribers
 
