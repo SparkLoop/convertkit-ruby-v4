@@ -37,11 +37,7 @@ module ConvertkitV4
       end
 
       def unsubscribe(subscriber_id)
-        connection.post("unsubscribe") do |f|
-          f.body = JSON.generate({
-            id: subscriber_id
-          })
-        end
+        connection.post("subscribers/#{subscriber_id}/unsubscribe")
       end
 
       def subscriber_tags(subscriber_id)
