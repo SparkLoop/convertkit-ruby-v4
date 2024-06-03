@@ -1,4 +1,4 @@
-module Convertkit
+module ConvertkitV4
   class Client
     module Sequences
       def sequences
