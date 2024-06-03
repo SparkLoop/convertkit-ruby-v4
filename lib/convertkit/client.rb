@@ -1,14 +1,14 @@
-require "convertkit_v4/client/account"
-require "convertkit_v4/client/custom_fields"
-require "convertkit_v4/client/forms"
-require "convertkit_v4/client/sequences"
-require "convertkit_v4/client/broadcasts"
-require "convertkit_v4/client/subscribers"
-require "convertkit_v4/client/webhooks"
-require "convertkit_v4/client/tags"
-require "convertkit_v4/connection"
+require "convertkit/client/account"
+require "convertkit/client/custom_fields"
+require "convertkit/client/forms"
+require "convertkit/client/sequences"
+require "convertkit/client/broadcasts"
+require "convertkit/client/subscribers"
+require "convertkit/client/webhooks"
+require "convertkit/client/tags"
+require "convertkit/connection"
 
-module ConvertkitV4
+module Convertkit
   class Client
     include Account
     include CustomFields
@@ -29,9 +29,9 @@ module ConvertkitV4
       @access_token = access_token
       @refresh_token = refresh_token
 
-      @client_id = client_id || ConvertkitV4.configuration.client_id
-      @client_secret = client_secret || ConvertkitV4.configuration.client_secret
-      @redirect_uri = redirect_uri || ConvertkitV4.configuration.redirect_uri
+      @client_id = client_id || Convertkit.configuration.client_id
+      @client_secret = client_secret || Convertkit.configuration.client_secret
+      @redirect_uri = redirect_uri || Convertkit.configuration.redirect_uri
     end
 
     def connection

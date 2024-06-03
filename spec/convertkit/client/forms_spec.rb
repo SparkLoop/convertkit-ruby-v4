@@ -1,10 +1,10 @@
 require "spec_helper"
 
-module ConvertkitV4
+module Convertkit
   class Client
     describe Forms do
       before do
-        @client = ConvertkitV4::Client.new
+        @client = Convertkit::Client.new
       end
 
       describe "#forms" do

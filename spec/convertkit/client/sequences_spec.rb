@@ -1,15 +1,15 @@
 require "spec_helper"
 
-module ConvertkitV4
+module Convertkit
   class Client
     describe Sequences do
       before do
-        ConvertkitV4.configure do |config|
+        Convertkit.configure do |config|
           config.api_secret = ENV["API_SECRET"]
           config.api_key = ENV["API_KEY"]
         end
 
-        @client = ConvertkitV4::Client.new
+        @client = Convertkit::Client.new
       end
 
       describe "#sequences" do
