@@ -1,8 +1,8 @@
-require "convertkit/version"
-require "convertkit/configuration"
-require "convertkit/client"
+require "convertkit_v4/version"
+require "convertkit_v4/configuration"
+require "convertkit_v4/client"
 
-module Convertkit
+module ConvertkitV4
   class << self
     attr_accessor :configuration
   end

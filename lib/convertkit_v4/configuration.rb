@@ -1,4 +1,4 @@
-module Convertkit
+module ConvertkitV4
   class Configuration
     attr_accessor :client_id, :client_secret, :redirect_uri, :access_token, :refresh_token
     attr_accessor :timeout, :open_timeout

@@ -1,4 +1,4 @@
-module Convertkit
+module ConvertkitV4
   class Error < StandardError; end
 
   class AuthorizationError < Error; end

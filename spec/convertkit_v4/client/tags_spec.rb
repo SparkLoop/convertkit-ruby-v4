@@ -1,16 +1,16 @@
 require "spec_helper"
 require "securerandom"
 
-module Convertkit
+module ConvertkitV4
   class Client
     describe Tags do
       before do
-        Convertkit.configure do |config|
+        ConvertkitV4.configure do |config|
           config.api_secret = ENV["API_SECRET"]
           config.api_key = ENV["API_KEY"]
         end
 
-        @client = Convertkit::Client.new
+        @client = ConvertkitV4::Client.new
       end
 
       describe "#tags" do
@@ -36,7 +36,7 @@ module Convertkit
         it "sends the right request" do
           subscriber_id = ENV['SUBSCRIBER_ID']
           tag_id = ENV['TAG_ID']
-
+          
           r = @client.remove_tag_from_subscriber(tag_id, subscriber_id)
           expect(r.success?).to be_truthy
           expect(r.body).to_not eql({"error"=>"Not Found", "message"=>"The entity you were trying to find doesn't exist"})
@@ -47,7 +47,7 @@ module Convertkit
         it "sends the right request" do
           tag_id = ENV['TAG_ID']
           email = "crt-tags+#{Time.now.to_i}@example.com"
-
+          
           r = @client.remove_tag_from_subscriber_by_email(tag_id, email)
           expect(r.success?).to be_truthy
           expect(r.body).to_not eql({"error"=>"Missing parameter","message"=>"Subscriber email is required"})

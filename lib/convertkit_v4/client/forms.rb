@@ -1,4 +1,4 @@
-module Convertkit
+module ConvertkitV4
   class Client
     module Forms
       def forms

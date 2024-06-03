@@ -1,12 +1,12 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'convertkit'
+require 'convertkit_v4'
 require "dotenv"
 Dotenv.load(".env.local")
 
 require 'webmock/rspec'
 require 'vcr'
 
-Convertkit.configure do |config|
+ConvertkitV4.configure do |config|
   config.access_token = ENV["CONVERTKIT_ACCESS_TOKEN"]
 end
 

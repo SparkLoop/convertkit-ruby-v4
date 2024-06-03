@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'convertkit/version'
+require 'convertkit_v4/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "convertkit-ruby"
-  spec.version       = Convertkit::VERSION
+  spec.name          = "convertkit_v4-ruby"
+  spec.version       = ConvertkitV4::VERSION
   spec.authors       = ["Manuel Frigerio", "Petar Risteski"]
   spec.email         = ["manuel.frigerio@gmail.com", "risteskipetar3@gmail.com"]
 
@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "dotenv", "~> 2.1"
 
-  spec.add_runtime_dependency "faraday", "~> 2.0"
+  spec.add_runtime_dependency "faraday", "~> 1.0"
+  spec.add_runtime_dependency "faraday_middleware", "~> 1.0"
   spec.add_runtime_dependency "json", '>= 1.8.3'
 end

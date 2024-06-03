@@ -1,13 +1,14 @@
-require "convertkit/errors"
+require "convertkit_v4/errors"
 require "faraday"
 require "faraday_middleware"
 require "json"
 
-module Convertkit
+module ConvertkitV4
   class Connection
     attr_reader :http_connection
 
     API_URL = "https://api.convertkit.com/"
+    API_VERSION_PATH = "v4/"
 
     def initialize(access_token: nil)
       @http_connection = faraday_connection(access_token)
@@ -37,11 +38,11 @@ module Convertkit
 
     def faraday_connection(access_token)
       Faraday.new do |f|
-        f.url_prefix = "#{API_URL}"
+        f.url_prefix = "#{API_URL}#{API_VERSION_PATH}"
         f.adapter :net_http
 
-        f.options.timeout = Convertkit.configuration.timeout
-        f.options.open_timeout = Convertkit.configuration.open_timeout
+        f.options.timeout = ConvertkitV4.configuration.timeout
+        f.options.open_timeout = ConvertkitV4.configuration.open_timeout
 
         f.headers['Content-Type'] = content_type
         f.headers['Accept'] = "*/*"
