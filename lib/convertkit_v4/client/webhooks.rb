@@ -16,6 +16,10 @@ module ConvertkitV4
         response.body["webhook"]
       end
 
+      def remove_webhook(id)
+        connection.delete("webhooks/#{id}")
+      end
+
     end
   end
 end
