@@ -81,6 +81,14 @@ module ConvertkitV4
           }.by(-1)
         end
       end
+
+      describe "#subscriber_stats" do
+        it "returns the stats for a subscriber" do
+          subscriber_id = ENV['SUBSCRIBER_ID']
+          r = @client.subscriber_stats(subscriber_id)
+          expect(r.success?).to be_truthy
+        end
+      end
     end
   end
 end
