@@ -2,8 +2,8 @@ module ConvertkitV4
   class Client
     module Broadcasts
 
-      def broadcasts
-        connection.get("broadcasts").body["broadcasts"]
+      def broadcasts(options = {})
+        connection.get("broadcasts", options).body["broadcasts"]
       end
 
       def broadcast(broadcast_id)
