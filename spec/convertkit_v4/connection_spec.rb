@@ -3,11 +3,22 @@ require "spec_helper"
 module ConvertkitV4
   describe Connection do
     describe "#initialize" do
-      it "uses access_token" do
-        access_token = "access_token"
-        connection = Connection.new(access_token: access_token)
+      around do |example|
+        VCR.turned_off do
+          WebMock.disable_net_connect!
+          example.run
+        ensure
+          WebMock.allow_net_connect!
+        end
+      end
 
-        expect(connection.http_connection.params["access_token"]).to eq(access_token)
+      it "sends the access_token as a Bearer Authorization header, not in the URL" do
+        stub = stub_request(:get, "https://api.convertkit.com/v4/account")
+          .with(headers: { "Authorization" => "Bearer access_token" })
+
+        Connection.new(access_token: "access_token").get("account")
+
+        expect(stub).to have_been_requested
       end
     end
 

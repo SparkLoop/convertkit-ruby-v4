@@ -47,7 +47,7 @@ module ConvertkitV4
         f.headers['Content-Type'] = content_type
         f.headers['Accept'] = "*/*"
 
-        f.params['access_token'] = access_token if access_token
+        f.headers['Authorization'] = "Bearer #{access_token}" if access_token
 
         f.response :json, content_type: /\bjson$/
       end

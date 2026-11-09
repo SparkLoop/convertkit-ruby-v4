@@ -46,38 +46,40 @@ module ConvertkitV4
     end
 
     def get_access_token(code)
-      Faraday.new(url: ACCESS_TOKEN_URL).post do |req|
-        req.headers["Content-Type"] = "application/json"
-        req.params = {
-          client_id: @client_id,
-          client_secret: @client_secret,
-          code: code,
-          grant_type: "authorization_code",
-          redirect_uri: @redirect_uri
-        }
-      end
+      post_form(ACCESS_TOKEN_URL,
+        client_id: @client_id,
+        client_secret: @client_secret,
+        code: code,
+        grant_type: "authorization_code",
+        redirect_uri: @redirect_uri
+      )
     end
 
     def refresh_token
-      Faraday.new(url: ACCESS_TOKEN_URL).post do |req|
-        req.headers["Content-Type"] = "application/json"
-        req.params = {
-          client_id: @client_id,
-          client_secret: @client_secret,
-          refresh_token: @refresh_token,
-          grant_type: "refresh_token"
-        }
-      end
+      post_form(ACCESS_TOKEN_URL,
+        client_id: @client_id,
+        client_secret: @client_secret,
+        refresh_token: @refresh_token,
+        grant_type: "refresh_token"
+      )
     end
 
     def revoke_access
-      Faraday.new(url: REVOKE_ACCESS_URL).post do |req|
-        req.headers["Content-Type"] = "application/json"
-        req.params = {
-          client_id: @client_id,
-          client_secret: @client_secret,
-          token: @access_token
-        }
+      post_form(REVOKE_ACCESS_URL,
+        client_id: @client_id,
+        client_secret: @client_secret,
+        token: @access_token
+      )
+    end
+
+    private
+
+    # Kit asks that OAuth credentials travel in a form-encoded body, never in the URL,
+    # since URLs end up in access logs and proxies.
+    def post_form(url, params)
+      Faraday.new(url: url).post do |req|
+        req.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        req.body = URI.encode_www_form(params)
       end
     end
   end
