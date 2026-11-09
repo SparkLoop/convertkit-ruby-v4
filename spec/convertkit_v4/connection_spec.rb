@@ -2,16 +2,7 @@ require "spec_helper"
 
 module ConvertkitV4
   describe Connection do
-    describe "#initialize" do
-      around do |example|
-        VCR.turned_off do
-          WebMock.disable_net_connect!
-          example.run
-        ensure
-          WebMock.allow_net_connect!
-        end
-      end
-
+    describe "#initialize", :offline do
       it "sends the access_token as a Bearer Authorization header" do
         stub_request(:get, "https://api.convertkit.com/v4/account")
 

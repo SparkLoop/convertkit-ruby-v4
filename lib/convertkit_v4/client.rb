@@ -78,10 +78,7 @@ module ConvertkitV4
     # Kit asks that OAuth credentials travel in a form-encoded body, never in the URL,
     # since URLs end up in access logs and proxies.
     def post_form(url, params)
-      Faraday.new(url: url).post do |req|
-        req.headers["Content-Type"] = "application/x-www-form-urlencoded"
-        req.body = URI.encode_www_form(params)
-      end
+      Faraday.new(url: url) { |f| f.request :url_encoded }.post(nil, params)
     end
   end
 end

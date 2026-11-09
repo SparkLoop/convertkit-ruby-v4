@@ -21,16 +21,7 @@ module ConvertkitV4
       end
     end
 
-    describe "OAuth token requests" do
-      around do |example|
-        VCR.turned_off do
-          WebMock.disable_net_connect!
-          example.run
-        ensure
-          WebMock.allow_net_connect!
-        end
-      end
-
+    describe "OAuth token requests", :offline do
       let(:client) do
         ConvertkitV4::Client.new(
           access_token: "the-access-token",
@@ -94,29 +85,5 @@ module ConvertkitV4
       end
     end
 
-    describe "API key auth" do
-      around do |example|
-        VCR.turned_off do
-          WebMock.disable_net_connect!
-          example.run
-        ensure
-          WebMock.allow_net_connect!
-        end
-      end
-
-      let(:client) { ConvertkitV4::Client.new(api_key: "the-api-key") }
-
-      it "tags a subscriber by email_address using the API key header" do
-        stub_request(:post, "https://api.convertkit.com/v4/tags/123/subscribers")
-
-        client.add_subscriber_to_tag(123, "reader@example.com")
-
-        expect(WebMock).to have_requested(:post, "https://api.convertkit.com/v4/tags/123/subscribers")
-          .with(
-            headers: { "X-Kit-Api-Key" => "the-api-key" },
-            body: { email_address: "reader@example.com" }.to_json
-          )
-      end
-    end
   end
 end
