@@ -19,7 +19,7 @@ module ConvertkitV4
     include Webhooks
     include Tags
 
-    attr_accessor :access_token, :refresh_token, :api_key, :client_id, :client_secret, :redirect_uri
+    attr_accessor :access_token, :refresh_token, :client_id, :client_secret, :redirect_uri
 
     AUTH_URL = "https://app.convertkit.com/oauth/authorize"
     ACCESS_TOKEN_URL = "https://app.convertkit.com/oauth/token"
