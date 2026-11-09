@@ -13,21 +13,21 @@ module ConvertkitV4
       end
 
       it "sends the access_token as a Bearer Authorization header" do
-        stub = stub_request(:get, "https://api.convertkit.com/v4/account")
-          .with(headers: { "Authorization" => "Bearer access_token" })
+        stub_request(:get, "https://api.convertkit.com/v4/account")
 
         Connection.new(access_token: "access_token").get("account")
 
-        expect(stub).to have_been_requested
+        expect(WebMock).to have_requested(:get, "https://api.convertkit.com/v4/account")
+          .with(headers: { "Authorization" => "Bearer access_token" })
       end
 
       it "sends the api_key in the X-Kit-Api-Key header" do
-        stub = stub_request(:get, "https://api.convertkit.com/v4/account")
-          .with(headers: { "X-Kit-Api-Key" => "api_key" })
+        stub_request(:get, "https://api.convertkit.com/v4/account")
 
         Connection.new(api_key: "api_key").get("account")
 
-        expect(stub).to have_been_requested
+        expect(WebMock).to have_requested(:get, "https://api.convertkit.com/v4/account")
+          .with(headers: { "X-Kit-Api-Key" => "api_key" })
       end
     end
 

@@ -43,7 +43,11 @@ module ConvertkitV4
       let(:form_headers) { { "Content-Type" => "application/x-www-form-urlencoded" } }
 
       it "sends #refresh_token credentials in a form-encoded body" do
-        stub = stub_request(:post, "https://app.convertkit.com/oauth/token")
+        stub_request(:post, "https://app.convertkit.com/oauth/token")
+
+        client.refresh_token
+
+        expect(WebMock).to have_requested(:post, "https://app.convertkit.com/oauth/token")
           .with(
             headers: form_headers,
             body: {
@@ -53,14 +57,14 @@ module ConvertkitV4
               grant_type: "refresh_token"
             }
           )
-
-        client.refresh_token
-
-        expect(stub).to have_been_requested
       end
 
       it "sends #get_access_token credentials in a form-encoded body" do
-        stub = stub_request(:post, "https://app.convertkit.com/oauth/token")
+        stub_request(:post, "https://app.convertkit.com/oauth/token")
+
+        client.get_access_token("the-code")
+
+        expect(WebMock).to have_requested(:post, "https://app.convertkit.com/oauth/token")
           .with(
             headers: form_headers,
             body: {
@@ -71,14 +75,14 @@ module ConvertkitV4
               redirect_uri: "https://example.com/callback"
             }
           )
-
-        client.get_access_token("the-code")
-
-        expect(stub).to have_been_requested
       end
 
       it "sends #revoke_access credentials in a form-encoded body" do
-        stub = stub_request(:post, "https://app.convertkit.com/oauth/revoke")
+        stub_request(:post, "https://app.convertkit.com/oauth/revoke")
+
+        client.revoke_access
+
+        expect(WebMock).to have_requested(:post, "https://app.convertkit.com/oauth/revoke")
           .with(
             headers: form_headers,
             body: {
@@ -87,10 +91,6 @@ module ConvertkitV4
               token: "the-access-token"
             }
           )
-
-        client.revoke_access
-
-        expect(stub).to have_been_requested
       end
     end
 
@@ -107,15 +107,15 @@ module ConvertkitV4
       let(:client) { ConvertkitV4::Client.new(api_key: "the-api-key") }
 
       it "tags a subscriber by email_address using the API key header" do
-        stub = stub_request(:post, "https://api.convertkit.com/v4/tags/123/subscribers")
+        stub_request(:post, "https://api.convertkit.com/v4/tags/123/subscribers")
+
+        client.add_subscriber_to_tag(123, "reader@example.com")
+
+        expect(WebMock).to have_requested(:post, "https://api.convertkit.com/v4/tags/123/subscribers")
           .with(
             headers: { "X-Kit-Api-Key" => "the-api-key" },
             body: { email_address: "reader@example.com" }.to_json
           )
-
-        client.add_subscriber_to_tag(123, "reader@example.com")
-
-        expect(stub).to have_been_requested
       end
     end
   end
