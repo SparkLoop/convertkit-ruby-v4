@@ -25,9 +25,10 @@ module ConvertkitV4
     ACCESS_TOKEN_URL = "https://app.convertkit.com/oauth/token"
     REVOKE_ACCESS_URL = "https://app.convertkit.com/oauth/revoke"
 
-    def initialize(access_token: nil, refresh_token: nil, client_id: nil, client_secret: nil, redirect_uri: nil)
+    def initialize(access_token: nil, refresh_token: nil, api_key: nil, client_id: nil, client_secret: nil, redirect_uri: nil)
       @access_token = access_token
       @refresh_token = refresh_token
+      @api_key = api_key
 
       @client_id = client_id || ConvertkitV4.configuration.client_id
       @client_secret = client_secret || ConvertkitV4.configuration.client_secret
@@ -35,7 +36,7 @@ module ConvertkitV4
     end
 
     def connection
-      @connection ||= Connection.new(access_token: @access_token)
+      @connection ||= Connection.new(access_token: @access_token, api_key: @api_key)
     end
 
     def authorize
@@ -46,39 +47,36 @@ module ConvertkitV4
     end
 
     def get_access_token(code)
-      Faraday.new(url: ACCESS_TOKEN_URL).post do |req|
-        req.headers["Content-Type"] = "application/json"
-        req.params = {
-          client_id: @client_id,
-          client_secret: @client_secret,
-          code: code,
-          grant_type: "authorization_code",
-          redirect_uri: @redirect_uri
-        }
-      end
+      post_oauth(ACCESS_TOKEN_URL,
+        client_id: @client_id,
+        client_secret: @client_secret,
+        code: code,
+        grant_type: "authorization_code",
+        redirect_uri: @redirect_uri
+      )
     end
 
     def refresh_token
-      Faraday.new(url: ACCESS_TOKEN_URL).post do |req|
-        req.headers["Content-Type"] = "application/json"
-        req.params = {
-          client_id: @client_id,
-          client_secret: @client_secret,
-          refresh_token: @refresh_token,
-          grant_type: "refresh_token"
-        }
-      end
+      post_oauth(ACCESS_TOKEN_URL,
+        client_id: @client_id,
+        client_secret: @client_secret,
+        refresh_token: @refresh_token,
+        grant_type: "refresh_token"
+      )
     end
 
     def revoke_access
-      Faraday.new(url: REVOKE_ACCESS_URL).post do |req|
-        req.headers["Content-Type"] = "application/json"
-        req.params = {
-          client_id: @client_id,
-          client_secret: @client_secret,
-          token: @access_token
-        }
-      end
+      post_oauth(REVOKE_ACCESS_URL,
+        client_id: @client_id,
+        client_secret: @client_secret,
+        token: @access_token
+      )
+    end
+
+    private
+
+    def post_oauth(url, params)
+      Faraday.new(url: url) { |f| f.request :url_encoded }.post(nil, params)
     end
   end
 end

@@ -2,12 +2,23 @@ require "spec_helper"
 
 module ConvertkitV4
   describe Connection do
-    describe "#initialize" do
-      it "uses access_token" do
-        access_token = "access_token"
-        connection = Connection.new(access_token: access_token)
+    describe "#initialize", :offline do
+      it "sends the access_token as a Bearer Authorization header" do
+        stub_request(:get, "https://api.convertkit.com/v4/account")
 
-        expect(connection.http_connection.params["access_token"]).to eq(access_token)
+        Connection.new(access_token: "access_token").get("account")
+
+        expect(WebMock).to have_requested(:get, "https://api.convertkit.com/v4/account")
+          .with(headers: { "Authorization" => "Bearer access_token" })
+      end
+
+      it "sends the api_key in the X-Kit-Api-Key header" do
+        stub_request(:get, "https://api.convertkit.com/v4/account")
+
+        Connection.new(api_key: "api_key").get("account")
+
+        expect(WebMock).to have_requested(:get, "https://api.convertkit.com/v4/account")
+          .with(headers: { "X-Kit-Api-Key" => "api_key" })
       end
     end
 

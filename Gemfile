@@ -4,5 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'dotenv', '~> 2.1', '>= 2.1.1'
-gem 'webmock', '~> 2.1'
-gem 'vcr', '~> 3.0', '>= 3.0.3'
+gem 'webmock', '~> 3.0'
+gem 'vcr', '~> 6.0'
