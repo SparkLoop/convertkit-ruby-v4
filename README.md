@@ -20,18 +20,22 @@ Or install it yourself as:
 
 ## Authentication
 
-For private integrations, use your personal ``API_KEY`` and ``API_SECRET`` found in [your account settings.](https://app.ConvertkitV4.com/account/edit)
+For OAuth apps, configure your app credentials once and create a client with the account's tokens:
 
 ```ruby
-require "dotenv"
-Dotenv.load(".env.local")
-
 ConvertkitV4.configure do |config|
-  config.api_secret = ENV["API_SECRET"]
-  config.api_key = ENV["API_KEY"]
+  config.client_id = ENV["CLIENT_ID"]
+  config.client_secret = ENV["CLIENT_SECRET"]
+  config.redirect_uri = ENV["REDIRECT_URI"]
 end
 
-client = ConvertkitV4::Client.new
+client = ConvertkitV4::Client.new(access_token: access_token, refresh_token: refresh_token)
+```
+
+For private integrations, pass a v4 API key from your account's developer settings:
+
+```ruby
+client = ConvertkitV4::Client.new(api_key: ENV["API_KEY"])
 ```
 
 ## Usage
