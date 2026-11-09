@@ -47,7 +47,7 @@ module ConvertkitV4
     end
 
     def get_access_token(code)
-      post_form(ACCESS_TOKEN_URL,
+      post_oauth(ACCESS_TOKEN_URL,
         client_id: @client_id,
         client_secret: @client_secret,
         code: code,
@@ -57,7 +57,7 @@ module ConvertkitV4
     end
 
     def refresh_token
-      post_form(ACCESS_TOKEN_URL,
+      post_oauth(ACCESS_TOKEN_URL,
         client_id: @client_id,
         client_secret: @client_secret,
         refresh_token: @refresh_token,
@@ -66,7 +66,7 @@ module ConvertkitV4
     end
 
     def revoke_access
-      post_form(REVOKE_ACCESS_URL,
+      post_oauth(REVOKE_ACCESS_URL,
         client_id: @client_id,
         client_secret: @client_secret,
         token: @access_token
@@ -75,9 +75,7 @@ module ConvertkitV4
 
     private
 
-    # Kit asks that OAuth credentials travel in a form-encoded body, never in the URL,
-    # since URLs end up in access logs and proxies.
-    def post_form(url, params)
+    def post_oauth(url, params)
       Faraday.new(url: url) { |f| f.request :url_encoded }.post(nil, params)
     end
   end
