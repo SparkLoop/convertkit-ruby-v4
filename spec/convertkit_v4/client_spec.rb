@@ -42,7 +42,7 @@ module ConvertkitV4
       end
       let(:form_headers) { { "Content-Type" => "application/x-www-form-urlencoded" } }
 
-      it "sends #refresh_token credentials in a form body with nothing in the URL" do
+      it "sends #refresh_token credentials in a form-encoded body" do
         stub = stub_request(:post, "https://app.convertkit.com/oauth/token")
           .with(
             headers: form_headers,
@@ -59,7 +59,7 @@ module ConvertkitV4
         expect(stub).to have_been_requested
       end
 
-      it "sends #get_access_token credentials in a form body with nothing in the URL" do
+      it "sends #get_access_token credentials in a form-encoded body" do
         stub = stub_request(:post, "https://app.convertkit.com/oauth/token")
           .with(
             headers: form_headers,
@@ -77,7 +77,7 @@ module ConvertkitV4
         expect(stub).to have_been_requested
       end
 
-      it "sends #revoke_access credentials in a form body with nothing in the URL" do
+      it "sends #revoke_access credentials in a form-encoded body" do
         stub = stub_request(:post, "https://app.convertkit.com/oauth/revoke")
           .with(
             headers: form_headers,

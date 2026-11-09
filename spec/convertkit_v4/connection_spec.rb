@@ -12,7 +12,7 @@ module ConvertkitV4
         end
       end
 
-      it "sends the access_token as a Bearer Authorization header, not in the URL" do
+      it "sends the access_token as a Bearer Authorization header" do
         stub = stub_request(:get, "https://api.convertkit.com/v4/account")
           .with(headers: { "Authorization" => "Bearer access_token" })
 
