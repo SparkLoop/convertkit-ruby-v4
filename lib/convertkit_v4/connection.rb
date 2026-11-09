@@ -10,8 +10,8 @@ module ConvertkitV4
     API_URL = "https://api.convertkit.com/"
     API_VERSION_PATH = "v4/"
 
-    def initialize(access_token: nil)
-      @http_connection = faraday_connection(access_token)
+    def initialize(access_token: nil, api_key: nil)
+      @http_connection = faraday_connection(access_token, api_key)
     end
 
     def content_type
@@ -36,7 +36,7 @@ module ConvertkitV4
 
     private
 
-    def faraday_connection(access_token)
+    def faraday_connection(access_token, api_key)
       Faraday.new do |f|
         f.url_prefix = "#{API_URL}#{API_VERSION_PATH}"
         f.adapter :net_http
@@ -48,6 +48,7 @@ module ConvertkitV4
         f.headers['Accept'] = "*/*"
 
         f.headers['Authorization'] = "Bearer #{access_token}" if access_token
+        f.headers['X-Kit-Api-Key'] = api_key if api_key
 
         f.response :json, content_type: /\bjson$/
       end

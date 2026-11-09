@@ -93,5 +93,30 @@ module ConvertkitV4
         expect(stub).to have_been_requested
       end
     end
+
+    describe "API key auth" do
+      around do |example|
+        VCR.turned_off do
+          WebMock.disable_net_connect!
+          example.run
+        ensure
+          WebMock.allow_net_connect!
+        end
+      end
+
+      let(:client) { ConvertkitV4::Client.new(api_key: "the-api-key") }
+
+      it "tags a subscriber by email_address using the API key header" do
+        stub = stub_request(:post, "https://api.convertkit.com/v4/tags/123/subscribers")
+          .with(
+            headers: { "X-Kit-Api-Key" => "the-api-key" },
+            body: { email_address: "reader@example.com" }.to_json
+          )
+
+        client.add_subscriber_to_tag(123, "reader@example.com")
+
+        expect(stub).to have_been_requested
+      end
+    end
   end
 end

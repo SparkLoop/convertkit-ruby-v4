@@ -19,15 +19,16 @@ module ConvertkitV4
     include Webhooks
     include Tags
 
-    attr_accessor :access_token, :refresh_token, :client_id, :client_secret, :redirect_uri
+    attr_accessor :access_token, :refresh_token, :api_key, :client_id, :client_secret, :redirect_uri
 
     AUTH_URL = "https://app.convertkit.com/oauth/authorize"
     ACCESS_TOKEN_URL = "https://app.convertkit.com/oauth/token"
     REVOKE_ACCESS_URL = "https://app.convertkit.com/oauth/revoke"
 
-    def initialize(access_token: nil, refresh_token: nil, client_id: nil, client_secret: nil, redirect_uri: nil)
+    def initialize(access_token: nil, refresh_token: nil, api_key: nil, client_id: nil, client_secret: nil, redirect_uri: nil)
       @access_token = access_token
       @refresh_token = refresh_token
+      @api_key = api_key
 
       @client_id = client_id || ConvertkitV4.configuration.client_id
       @client_secret = client_secret || ConvertkitV4.configuration.client_secret
@@ -35,7 +36,7 @@ module ConvertkitV4
     end
 
     def connection
-      @connection ||= Connection.new(access_token: @access_token)
+      @connection ||= Connection.new(access_token: @access_token, api_key: @api_key)
     end
 
     def authorize
