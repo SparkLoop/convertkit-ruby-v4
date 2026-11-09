@@ -21,7 +21,7 @@ module ConvertkitV4
         expect(stub).to have_been_requested
       end
 
-      it "sends the api_key in the X-Kit-Api-Key header, not in the URL" do
+      it "sends the api_key in the X-Kit-Api-Key header" do
         stub = stub_request(:get, "https://api.convertkit.com/v4/account")
           .with(headers: { "X-Kit-Api-Key" => "api_key" })
 
